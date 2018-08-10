@@ -211,6 +211,60 @@ export declare function http_request(
   content: string
 ): [number, IDict<string>, string];
 
+
+// Setup a new dynamic leaderboard with the specified ID and various
+// configuration settings. The leaderboard will be created if it doesn't already
+// exist, otherwise its configuration will not be updated.
+export declare function leaderboard_create(
+    id: string, authoritative: boolean, sort?: string, operator?: string,
+    reset?: string, metadata?: IDict<any>): void;
+
+// Delete a leaderboard and all scores that belong to it.
+export declare function leaderboard_delete(id: string): void;
+
+// Use the preconfigured operator for the given leaderboard to submit a score
+// for a particular user.
+export declare function leaderboard_record_write(
+    id: string, owner: string, username?: string, score?: number,
+    subscore?: number, metadata?: IDict<any>): void;
+
+// Remove an owner's record from a leaderboard, if one exists.
+export declare function leaderboard_record_delete(
+    id: string, owner: string): void;
+
+export interface LeaderboardRecord {
+  // The ID of the leaderboard this score belongs to.
+  leaderboard_id: string;
+  // The ID of the score owner, usually a user or group.
+  owner_id: string;
+  // The username of the score owner, if the owner is a user.
+  username: string;
+  // The score value.
+  score: number;
+  // An optional subscore value.
+  subscore: number;
+  // The number of submissions to this score record.
+  num_score: number;
+  // Metadata.
+  metadata: string;
+  // The UNIX time when the leaderboard record was created.
+  create_time: number;
+  // The UNIX time when the leaderboard record was updated.
+  update_time: number;
+  // The UNIX time when the leaderboard record expires.
+  expiry_time: number;
+  // The rank of this record.
+  rank: number; 
+}
+
+// List records on the specified leaderboard, optionally filtering to only a
+// subset of records by their owners. Records will be listed in the
+// preconfigured leaderboard sort order.
+/** !TupleReturn */
+export declare function leaderboard_records_list(
+    id: string, owners?: string[], limit?: number,
+    cursor?: string): [LeaderboardRecord[], number];
+
 // Decode the JSON input as a Lua table.
 export declare function json_decode(input: string): IDict<any>;
 
@@ -305,7 +359,7 @@ export declare function sql_exec(query: string, parameters: Array<any>): void;
 export declare function sql_query(
   query: string,
   parameters: Array<any>
-): [IDict<any>];
+): IDict<any>[];
 
 export interface IUserObjectId {
   collection: string;
