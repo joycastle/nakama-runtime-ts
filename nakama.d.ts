@@ -367,24 +367,13 @@ export interface IUserObjectId {
   user_id?: string;
 }
 
-export enum ReadPermission {
-  NoRead = 0,
-  OwnerRead = 1,
-  PublicRead = 2,
-}
-
-export enum WritePermission {
-  NoWrite = 0,
-  OwnerWrite = 1,
-}
-
 export interface IUserObject {
   collection: string;
   value: IDict<any>;
   key: string;
   user_id?: string;
-  permission_read?: ReadPermission;
-  permission_write?: WritePermission;
+  permission_read?: number;
+  permission_write?: number;
 }
 
 // Fetch one or more records by their bucket/collection/keyname and optional
