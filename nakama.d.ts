@@ -372,6 +372,7 @@ export interface IUserObject {
   value: IDict<any>;
   key: string;
   user_id?: string;
+  version?: string;
   permission_read?: number;
   permission_write?: number;
 }
