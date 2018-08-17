@@ -6,7 +6,7 @@ export interface IAccount {
   id: string;
   username: string;
   display_name: string;
-  avartar_url: string;
+  avatar_url: string;
   lang: string;
   location: string;
   timezone: string;
@@ -76,17 +76,16 @@ export interface IRuntimeContext {
 export declare function account_get_id(user_id: string): IAccount;
 
 // Update account information for a given user ID.
-/** !TupleReturn */
 export declare function account_update_id(
   user_id: string,
   metadata: IDict<any>,
   username: string,
   display_name: string | null,
-  timezone: string | null,
-  location: string | null,
-  language: string | null,
-  avatar_url: string | null
-): [string, string];
+  timezone?: string,
+  location?: string,
+  language?: string,
+  avatar_url?: string
+): void;
 
 // AES decrypt input with the key. Key must be 16 bytes long.
 export declare function aes128_decrypt(input: string, key: string): string;
