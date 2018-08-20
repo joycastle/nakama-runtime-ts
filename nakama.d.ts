@@ -26,6 +26,13 @@ export interface IAccount {
   verify_time: number;
 }
 
+export interface IUser {
+  id: string;
+  username: string;
+  display_name: string;
+  avatar_url: string;
+}
+
 export interface IMatch {
   match_id: string;
 }
@@ -445,6 +452,20 @@ export declare function uuid_bytes_to_string (uuid_bytes: string): string;
 // 16-byte raw UUID representation. Will raise an error if the input is not
 // valid and cannot be converted.
 export declare function uuid_string_to_bytes(uuid_string: string): string;
+
+// Fetch one or more users by ID.
+export declare function users_get_id(user_ids: string[]): IUser[];
+
+// Fetch a set of users by their usernames.
+export declare function users_get_username(usernames: string[]): IUser[];
+
+// Ban one or more users by ID. These users will no longer be allowed to
+// authenticate with the server until unbanned.
+export declare function users_ban_id(user_ids: string[]): void;
+
+// Unban one or more users by ID. These users will again be allowed to
+// authenticate with the server.
+export declare function users_unban_id(user_ids: string[]): void;
 
 export interface IChannelJoin {
   channel_join: {
