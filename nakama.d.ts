@@ -356,6 +356,11 @@ export declare function register_rpc(
   id: string
 ): void;
 
+// Run once at server startup
+export declare function run_once(
+  callback: (context: IRuntimeContext) => void
+): void;
+
 // Execute an arbitrary SQL query and return the number of rows affected.
 // Typically an INSERT, DELETE, or UPDATE statement with no return columns.
 export declare function sql_exec(query: string, parameters: Array<any>): void;
