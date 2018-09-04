@@ -201,6 +201,9 @@ export declare function bcrypt_compare(
   plaintext: string
 ): boolean;
 
+// Generate md5 hash
+export declare function md5_hash(input: string): string;
+
 // Parses a CRON expression and a timestamp in UTC seconds, and returns the next
 // matching timestamp in UTC seconds.
 export declare function cron_next(
