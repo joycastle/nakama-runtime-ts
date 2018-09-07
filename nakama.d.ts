@@ -22,7 +22,7 @@ export interface IAccount {
   email: string;
   devices: string[];
   custom_id: string;
-  wallet: IDict<number>;
+  wallet: IDict<number | IDict<number>>;
   verify_time: number;
 }
 
@@ -418,7 +418,7 @@ export declare function storage_write(objects: IUserObject[]): void;
 export declare function time(): number;
 
 // Update a user's wallet with the given changeset.
-export declare function wallet_update(user_id: string, changeset: IDict<number | undefined>, metadata?: IDict<any>): void;
+export declare function wallet_update(user_id: string, changeset: any, metadata?: IDict<any>): void;
 
 export interface IWalletUpdate {
   user_id: string;
