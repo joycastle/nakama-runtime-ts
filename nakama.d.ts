@@ -497,7 +497,7 @@ export declare function stream_user_join(
 export declare function stream_user_leave(
     user_id: string, session_id: string, stream_id: IStreamId): void;
 
-export declare function stream_data_send(
+export declare function stream_send(
     stream_id: IStreamId, payload: string): void;
 
 export declare function stream_close(stream_id: IStreamId): void;
