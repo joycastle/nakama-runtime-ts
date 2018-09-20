@@ -508,3 +508,7 @@ export declare function stream_user_list(stream_id: IStreamId): IPresence[];
 
 export declare function stream_user_get(
     user_id: string, session_id: string, stream_id: IStreamId): IDict<any>;
+
+export declare function localcache_get(key: string): string | null;
+export declare function localcache_put(key: string, value: string): never;
+export declare function localcache_delete(key: string): never;
