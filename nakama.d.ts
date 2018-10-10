@@ -272,7 +272,7 @@ export interface LeaderboardRecord {
 /** !TupleReturn */
 export declare function leaderboard_records_list(
     id: string, owners?: string[], limit?: number,
-    cursor?: string): [LeaderboardRecord[], number];
+    cursor?: string, overrideExpiry?: number): [LeaderboardRecord[], LeaderboardRecord[], string | null, string | null];
 
 // Decode the JSON input as a Lua table.
 export declare function json_decode(input: string): IDict<any>;
@@ -509,6 +509,58 @@ export declare function stream_user_list(stream_id: IStreamId): IPresence[];
 export declare function stream_user_get(
     user_id: string, session_id: string, stream_id: IStreamId): IDict<any>;
 
-export declare function localcache_get(key: string): string | null;
+export declare function localcache_get(key: string, default_value?: string): string | null;
 export declare function localcache_put(key: string, value: string): never;
 export declare function localcache_delete(key: string): never;
+
+// About Tournament
+interface Tournament {
+  id: string;
+  title: string;
+  description: string;
+  category: number;
+  sort_order: string;
+  size: number;
+  max_size: number;
+  max_num_score: number;
+  can_enter: boolean;
+  next_reset: number;
+  metadata: object;
+  create_time: number;
+  start_time: number;
+}
+
+interface TournamentRecord {
+  leaderboard_id: string;
+  owner_id: string;
+  username?: string;
+  score: number;
+  subscore: number;
+  num_score: number;
+  metadata: object;
+  create_time: number;
+  update_time: number;
+  expiry_time?: number;
+}
+
+export declare function tournament_create(id: string, sort: string, operator: string, 
+  duration: number, reset_schedule?: string, metadata?: object, title?: string, description?: string, 
+  category?: number, start_time?: number, end_time?: number, max_size?: number, max_num_score?: number, join_required?: boolean): void;
+
+export declare function tournament_delete(id: string): void;
+
+export declare function tournament_add_attempt(id: string, owner: string, count: number): void;
+
+export declare function tournament_join(id: string, user_id: string, username: string): void;
+
+export declare function tournament_list(category_start?: number, category_end?: number, start_time?: number, end_time?: number,
+  limit?: number, cursor?: string): Tournament[];
+
+export declare function tournament_record_write(id: string, user_id: string, username?: string, 
+  score?: number, subscore?: number, matadata?: object): TournamentRecord;
+
+export declare function tournament_records_haystack(id: string, user_id: string, limit?: number): TournamentRecord[];
+
+export declare function register_tournament_end(callback: (context: IRuntimeContext, tour: Tournament, end: number, reset: number) => void): void;
+
+export declare function register_tournament_reset(callback: (context: IRuntimeContext, tour: Tournament, end: number, reset: number) => void): void;
