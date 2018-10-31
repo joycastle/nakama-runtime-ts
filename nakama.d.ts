@@ -35,6 +35,9 @@ export interface IUser {
 
 export interface IMatch {
   match_id: string;
+  authoritative: boolean;
+  label: string;
+  size: number;
 }
 
 export interface IMatchContext {
