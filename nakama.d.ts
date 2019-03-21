@@ -63,7 +63,7 @@ export interface IDispatcher {
     presences: IPresence[] | null,
     dispatcher: IPresence | null
   ) => void;
-  match_kick: (presences: [IPresence]) => void;
+  match_kick: (presences: IPresence[]) => void;
 }
 
 export interface IMessage {
@@ -369,7 +369,7 @@ export declare function run_once(
 
 // Execute an arbitrary SQL query and return the number of rows affected.
 // Typically an INSERT, DELETE, or UPDATE statement with no return columns.
-export declare function sql_exec(query: string, parameters: Array<any>): void;
+export declare function sql_exec(query: string, parameters: Array<any>): number;
 
 // Execute an arbitrary SQL query that is expected to return row data. Typically
 // a SELECT statement.
@@ -567,3 +567,9 @@ export declare function tournament_records_haystack(id: string, user_id: string,
 export declare function register_tournament_end(callback: (context: IRuntimeContext, tour: Tournament, end: number, reset: number) => void): void;
 
 export declare function register_tournament_reset(callback: (context: IRuntimeContext, tour: Tournament, end: number, reset: number) => void): void;
+
+/**
+ * Added since nakama v2.4.0.
+ * To immediately disconnect active sockets.
+ */
+export declare function session_disconnect(session_id: string, node?: string): void;
